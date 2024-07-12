@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import Guess from "./Guess.tsx";
 
 export default function Pokedle() {
     interface Pokemon {
@@ -16,6 +17,9 @@ export default function Pokedle() {
     //----------------FETCHING DATA--------------------
     const [allPokemon, setAllPokemon] = useState<Pokemon[]>([]);
     const [loading, setLoading] = useState(true);
+    const [solution, setSolution] = useState<Pokemon>();
+    const r = Math.floor(Math.random() * 4);
+
     useEffect(() => {
         const fetchData = async() => {
             try{
@@ -26,7 +30,7 @@ export default function Pokedle() {
                     setLoading(false);
                     console.log(result);
                     //for all names, create Pokemon objects
-                    result.results.map(async (p: any) => {
+                    result.results.map(async (p: any, i) => {
                         //console.log(p.name);
                         const response2 = await fetch(`https://pokeapi.co/api/v2/pokemon/${p.name}`);
                         const result2 = await response2.json();
@@ -46,6 +50,9 @@ export default function Pokedle() {
                                 ability: result2.abilities[0].ability.name,
                                 spriteURL: result2.sprites.front_default,
                             };
+                            if (i == r){
+                                setSolution(newPokemon);
+                            }
                             setAllPokemon((a) => [...a, newPokemon]);
                         }
                         else{
@@ -59,6 +66,9 @@ export default function Pokedle() {
                                 ability: result2.abilities[0].ability.name,
                                 spriteURL: result2.sprites.front_default,
                             };
+                            if (i == r){
+                                setSolution(newPokemon);
+                            }
                             setAllPokemon((a) => [...a, newPokemon]);
                         }
                     });
@@ -75,7 +85,6 @@ export default function Pokedle() {
     //----------------GAME FUNCTIONALITY--------------------
     const [newGuess, setNewGuess] = useState("");
     const [guesses, setGuesses] = useState<Pokemon[]>([]);
-
 
     function handleGuessChange(e : any){
         setNewGuess(e.target.value);
@@ -99,9 +108,8 @@ export default function Pokedle() {
         setNewGuess("");
     }
 
-    //console.log(guesses);
     return (
-        <div>
+        <div className="guess-container">
             <input
                 type="text"
                 placeholder="Type pokemon name..."
@@ -109,10 +117,34 @@ export default function Pokedle() {
                 onChange={handleGuessChange}
                 onKeyDown={handleKeyDown}
             />
-            <div>
-
+            <div className="guess-categories">
+                <div className="guess-category-box">
+                    Pokemon
+                </div>
+                <div className="guess-category-box">
+                    Type 1
+                </div>
+                <div className="guess-category-box">
+                    Type 2
+                </div>
+                <div className="guess-category-box">
+                    Habitat
+                </div>
+                <div className="guess-category-box">
+                    Color
+                </div>
+                <div className="guess-category-box">
+                    Evolution
+                </div>
+                <div className="guess-category-box">
+                    Gen
+                </div>
             </div>
-
+            <div className="guesses">
+                {guesses.map((x, i) => (
+                    <Guess key={i} pokemon={x} solution={solution}></Guess>
+                ))}
+            </div>
         </div>
     )
 }

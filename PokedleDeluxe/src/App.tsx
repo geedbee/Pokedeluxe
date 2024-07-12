@@ -7,9 +7,12 @@ function App() {
 
   return (
     <>
-        <Header></Header>
-        <HintBox></HintBox>
-        <Pokedle></Pokedle>
+        <div className="app-container">
+            <Header></Header>
+            <HintBox></HintBox>
+            <Pokedle></Pokedle>
+        </div>
+
     </>
   )
 }
