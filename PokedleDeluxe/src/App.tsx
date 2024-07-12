@@ -1,7 +1,6 @@
-import './App.css'
 import Pokedle from "./Pokedle.tsx";
 import Header from "./Header.tsx";
-import HintBox from "./HintBox.tsx";
+import Footer from "./Footer.tsx";
 
 function App() {
 
@@ -10,6 +9,7 @@ function App() {
         <div className="app-container">
             <Header></Header>
             <Pokedle></Pokedle>
+            <Footer></Footer>
         </div>
 
     </>

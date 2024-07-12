@@ -17,6 +17,8 @@ export default function Pokedle() {
         spriteURL: string;
         height: string;
         weight:string;
+        flavortext:string;
+        egggroup:string;
     }
 
     //----------------FETCHING DATA--------------------
@@ -33,7 +35,7 @@ export default function Pokedle() {
                     //get all names
                     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${maxNum}`);
                     const result = await response.json();
-                    console.log(result);
+                    //console.log(result);
                     //for all names, create Pokemon objects
                     result.results.map(async (p: any, i: number) => {
                         //console.log(p.name);
@@ -56,6 +58,8 @@ export default function Pokedle() {
                                 spriteURL: result2.sprites.front_default,
                                 height:result2.height,
                                 weight:result2.weight,
+                                flavortext:result3.flavor_text_entries[0]["flavor_text"],
+                                egggroup:result3.egg_groups[0].name,
                             };
                             if (i == r){
                                 setSolution(newPokemon);
@@ -74,6 +78,8 @@ export default function Pokedle() {
                                 spriteURL: result2.sprites.front_default,
                                 height:result2.height,
                                 weight:result2.weight,
+                                flavortext:result3.flavor_text_entries[0]["flavor_text"],
+                                egggroup:result3.egg_groups[0].name,
                             };
                             if (i == r){
                                 setSolution(newPokemon);
@@ -109,6 +115,8 @@ export default function Pokedle() {
         generation: boolean,
         height:boolean,
         weight:boolean,
+        isTaller:boolean,
+        isHeavier:boolean,
     }
 
     function handleGuessChange(e : any){
@@ -147,6 +155,8 @@ export default function Pokedle() {
             generation: false,
             height:false,
             weight:false,
+            isTaller:false,
+            isHeavier:false,
         }
         if (solution){
             if (solution.type1 == pokemon.type1){
@@ -167,8 +177,14 @@ export default function Pokedle() {
             if (solution.height == pokemon.height){
                 myGuess.height = true;
             }
+            else if (solution.height < pokemon.height){
+                myGuess.isTaller = true;
+            }
             if (solution.weight == pokemon.weight){
                 myGuess.weight = true;
+            }
+            else if (solution.weight < pokemon.weight){
+                myGuess.isHeavier = true;
             }
             setGuesses(() => [...guesses, myGuess]);
         }
@@ -196,7 +212,11 @@ export default function Pokedle() {
 
     return (
         <>
-            <HintBox></HintBox>
+            <div className="hint-box-container">
+                <p>Generation 1-9</p>
+                <p>Guess today's Pokemon!</p>
+                {!winState && solution && <HintBox solution={solution}></HintBox>}
+            </div>
             <div className="guess-container">
                 {!loading && !winState && <input
                     type="text"

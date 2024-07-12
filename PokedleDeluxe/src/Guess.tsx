@@ -38,6 +38,20 @@ export default function Guess(props) {
     if (myGuess.weight){
         sWeightColor = GREEN;
     }
+    var heightArrow = "^";
+    if (myGuess.isTaller){
+        heightArrow = "v";
+    }
+    else if (sHeightColor == GREEN){
+        heightArrow = "";
+    }
+    var weightArrow = "^";
+    if (myGuess.isHeavier){
+        weightArrow = "v";
+    }
+    else if (sWeightColor == GREEN){
+        weightArrow = "";
+    }
 
     return (
         <div className="guess-bar">
@@ -49,6 +63,7 @@ export default function Guess(props) {
             <div className="guess-box" id="type-1" style={{backgroundColor: sType1Color}}>
                 <div className="guess-text-box">
                     {pokemon.type1}
+
                 </div>
             </div>
             <div className="guess-box" id="type-2" style={{backgroundColor: sType2Color}}>
@@ -77,11 +92,13 @@ export default function Guess(props) {
             <div className="guess-box" id="height" style={{backgroundColor: sHeightColor}}>
                 <div className="guess-text-box">
                     {pokemon.height}
+                    {heightArrow}
                 </div>
             </div>
             <div className="guess-box" id="height" style={{backgroundColor: sWeightColor}}>
                 <div className="guess-text-box">
                     {pokemon.weight}
+                    {weightArrow}
                 </div>
             </div>
         </div>
