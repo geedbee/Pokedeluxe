@@ -86,3 +86,23 @@
     font-size: 50px;
     margin-bottom:20px;
 }
+
+.end-card{
+    margin-top:20px;
+    background-color:#296837;
+    height:300px;
+    width:300px;
+    display:inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+}
+
+.end-card-solution{
+
+}
+
+.solution-img{
+    float:left;
+}

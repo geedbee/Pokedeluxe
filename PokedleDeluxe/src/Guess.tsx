@@ -1,35 +1,42 @@
 export default function Guess(props) {
-    const pokemon = props.pokemon;
-    const solution = props.solution;
-    const sType1 = solution.type1;
-    const sType2 = solution.type2;
-    const sColor = solution.color;
-    const sHabitat = solution.habitat;
-    const sGeneration = solution.generation;
-    const sAbility = solution.ability;
+    const myGuess = props.guess;
+    const pokemon = props.guess.pokemon;
+    let pokemonType2 = pokemon.type2;
+
+    if (!pokemonType2){
+        pokemonType2 = "None";
+    }
 
     const RED = "#f36445"
     const GREEN ="#008000";
 
     var sType1Color = RED;
-    if (sType1 == pokemon.type1){
+    if (myGuess.type1){
         sType1Color = GREEN;
     }
     var sType2Color = RED;
-    if (sType2 == pokemon.type2){
+    if (myGuess.type2){
         sType2Color = GREEN;
     }
     var sColorColor = RED;
-    if (sColor == pokemon.color){
+    if (myGuess.color){
         sColorColor = GREEN;
     }
     var sHabitatColor = RED;
-    if (sHabitat == pokemon.habitat){
+    if (myGuess.habitat){
         sHabitatColor = GREEN;
     }
     var sGenerationColor = RED;
-    if (sGeneration == pokemon.generation){
+    if (myGuess.generation){
         sGenerationColor = GREEN;
+    }
+    var sHeightColor = RED;
+    if (myGuess.height){
+        sHeightColor = GREEN;
+    }
+    var sWeightColor = RED;
+    if (myGuess.weight){
+        sWeightColor = GREEN;
     }
 
     return (
@@ -45,6 +52,9 @@ export default function Guess(props) {
                 </div>
             </div>
             <div className="guess-box" id="type-2" style={{backgroundColor: sType2Color}}>
+                <div className="guess-text-box">
+                    {pokemonType2}
+                </div>
             </div>
             <div className="guess-box" id="habitat" style={{backgroundColor: sHabitatColor}}>
                 <div className="guess-text-box">
@@ -61,7 +71,17 @@ export default function Guess(props) {
             </div>
             <div className="guess-box" id="generation" style={{backgroundColor: sGenerationColor}}>
                 <div className="guess-text-box">
-                    {pokemon.generation}
+                    {pokemon.generation.slice(-1)}
+                </div>
+            </div>
+            <div className="guess-box" id="height" style={{backgroundColor: sHeightColor}}>
+                <div className="guess-text-box">
+                    {pokemon.height}
+                </div>
+            </div>
+            <div className="guess-box" id="height" style={{backgroundColor: sWeightColor}}>
+                <div className="guess-text-box">
+                    {pokemon.weight}
                 </div>
             </div>
         </div>

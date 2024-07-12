@@ -9,7 +9,6 @@ function App() {
     <>
         <div className="app-container">
             <Header></Header>
-            <HintBox></HintBox>
             <Pokedle></Pokedle>
         </div>
 
