@@ -6,7 +6,7 @@ export default function EndCard(props) {
             <span>Well done!<br/></span>
             <span>You guessed:<br/></span>
             <div className="end-card-solution">
-                <img src={solution.spriteURL} alt={solution.name} className="solution-img"/>
+                <img src={solution.gifURL} alt={solution.name} className="solution-img"/>
                 <span>{solution.name.toUpperCase()}<br/></span>
                 <span>Tries:{tries}</span>
             </div>

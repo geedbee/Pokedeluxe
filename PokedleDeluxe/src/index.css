@@ -1,5 +1,5 @@
 .app-container{
-    height:100vh;
+    min-height:100vh;
     width:100%;
     display:flex;
     flex-direction: column;
@@ -66,10 +66,10 @@
 
 .hint-box{
     display:flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
     gap:10px;
+    text-align:center;
 }
 
 .hint-icon{
@@ -137,14 +137,21 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap:20px;
+    gap:10px;
+    margin-bottom: 20px;
+    padding:20px;
 }
 
 .end-card-solution{
-
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:20px;
 }
 
 .solution-img{
+    height:75%;
+    width:75%;
     float:left;
 }
 

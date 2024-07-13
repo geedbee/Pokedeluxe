@@ -30,7 +30,7 @@ export default function GuessCategories() {
                 </div>
             </div>
             <div className="guess-category-box">
-                <div className="tooltip">Generation
+                <div className="tooltip">Gen
                     <span className="tooltiptext">The generation the Pokemon was first introduced.</span>
                 </div>
             </div>
