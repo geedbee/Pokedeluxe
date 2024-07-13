@@ -13,7 +13,7 @@ export default function StartMenu(props) {
     }
 
     return (
-        <div>
+        <div className="start-menu-container">
             <span>Welcome to Pokedle-Deluxe, aka Pokedeluxe!</span>
             <br/>
             <span>Select your generation here: </span>
@@ -25,7 +25,7 @@ export default function StartMenu(props) {
                         <option value="3">3</option>
                     </select>
                 </label>
-                <button type="submit">Submit</button>
+                <button type="submit" className="button">Submit</button>
             </form>
 
 

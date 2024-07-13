@@ -1,3 +1,5 @@
+/* Palette: https://lospec.com/palette-list/crab-beach-7 */
+
 .app-container{
     min-height:100vh;
     width:100%;
@@ -6,6 +8,11 @@
     align-items: center;
     position:relative;
     font-family: "Press Start 2P", sans-serif;
+}
+
+.header{
+    font-size: 50px;
+    margin-bottom:20px;
 }
 
 .footer{
@@ -20,7 +27,7 @@
 .guess-bar{
     display:flex;
     gap:1%;
-    margin-top:20px;
+    margin-bottom:20px;
     width:100%;
     justify-content: center;
 }
@@ -37,6 +44,7 @@
     align-items:center;
 }
 .guess-text-box{
+    text-align:center;
     font-size:8px;
 }
 
@@ -48,10 +56,10 @@
 }
 
 .hint-box-container{
-    background-color: #294e68;
+    background-color:#177e86;
     width:40%;
     height:40%;
-    color:white;
+    color:#96e7cb;
     font-size: 10px;
     display:flex;
     align-items: center;
@@ -66,9 +74,10 @@
 
 .hint-box{
     display:flex;
+    font-size:7px;
     flex-direction: column;
     align-items: center;
-    gap:10px;
+    gap:5px;
     text-align:center;
 }
 
@@ -122,15 +131,9 @@
     font-style: normal;
 }
 
-
-.header{
-    font-size: 50px;
-    margin-bottom:20px;
-}
-
 .end-card{
     margin-top:20px;
-    background-color:#296837;
+    background-color:#96e7cb;
     height:300px;
     width:300px;
     display:inline-flex;
@@ -155,6 +158,14 @@
     float:left;
 }
 
+.start-menu-container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap:20px;
+}
+
 /* Credit: https://www.w3schools.com/howto/howto_css_tooltip.asp */
 /* Tooltip container */
 .tooltip {
@@ -167,8 +178,8 @@
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 120px;
-    background-color: #555;
-    color: #fff;
+    background-color: #177e86;
+    color: #96e7cb;
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;
@@ -189,4 +200,17 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+/* https://www.w3schools.com/css/css3_buttons.asp */
+.button {
+    background-color: #96e7cb; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    font-family: "Press Start 2P", system-ui;
 }

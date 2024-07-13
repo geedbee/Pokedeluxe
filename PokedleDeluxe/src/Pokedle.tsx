@@ -242,9 +242,9 @@ export default function Pokedle(props) {
         <>
             <div className="hint-box-container">
                 <p>Generation {props.generation}</p>
-                <p>Guess today's Pokemon!</p>
+                <p>Guess the Pokemon!</p>
                 {!winState && solution && <HintBox solution={solution}></HintBox>}
-                {winState && <button onClick={resetGame}>Reset Game</button>}
+                {winState && <button className="button" onClick={resetGame}>Reset Game</button>}
             </div>
             <div className="guess-container">
                 {!loading && !winState && <input

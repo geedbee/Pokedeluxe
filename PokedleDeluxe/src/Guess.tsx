@@ -7,8 +7,8 @@ export default function Guess(props) {
         pokemonType2 = "None";
     }
 
-    const RED = "#f36445"
-    const GREEN ="#008000";
+    const RED = "#b93c4e"
+    const GREEN ="#38ac84";
 
     var sType1Color = RED;
     if (myGuess.type1){

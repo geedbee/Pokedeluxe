@@ -31,21 +31,21 @@ export default function HintBox(props) {
             <div className="hint-box-hints">
                 <div className="hint-box" onClick={abilityButtonHandler}>
                     <button className="hint-button">
-                        <img src="../public/settings.png" alt="ability" className="hint-icon"/>
+                        <img src="../public/_fight.png" alt="ability" className="hint-icon"/>
                     </button>
                     <span>Ability</span>
                 </div>
                 <div className="hint-box">
                     <button className="hint-button" onClick={egggroupButtonHandler}>
-                        <img src="../public/settings.png" alt="ability" className="hint-icon"/>
+                        <img src="../public/_Egg.png" alt="ability" className="hint-icon"/>
                     </button>
                     <span>Egg Group</span>
                 </div>
                 <div className="hint-box">
                     <button className="hint-button" onClick={descriptionButtonHandler}>
-                        <img src="../public/instagram.png" alt="description" className="hint-icon"/>
+                        <img src="../public/_Mobile%20Phone.png" alt="description" className="hint-icon"/>
                     </button>
-                    <span>Description</span>
+                    <span>Entry</span>
                 </div>
             </div>
             <div className="hint-container">
