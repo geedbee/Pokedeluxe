@@ -2,9 +2,14 @@ export default function Guess(props) {
     const myGuess = props.guess;
     const pokemon = props.guess.pokemon;
     let pokemonType2 = pokemon.type2;
+    let habitat =pokemon.habitat;
 
     if (!pokemonType2){
         pokemonType2 = "None";
+    }
+
+    if (!habitat){
+        habitat = "None";
     }
 
     const RED = "#b93c4e"
@@ -73,7 +78,7 @@ export default function Guess(props) {
             </div>
             <div className="guess-box" id="habitat" style={{backgroundColor: sHabitatColor}}>
                 <div className="guess-text-box">
-                    {pokemon.habitat}
+                    {habitat}
                 </div>
             </div>
             <div className="guess-box" id="color" style={{backgroundColor: sColorColor}}>
@@ -86,7 +91,7 @@ export default function Guess(props) {
             </div>
             <div className="guess-box" id="generation" style={{backgroundColor: sGenerationColor}}>
                 <div className="guess-text-box">
-                    {pokemon.generation.slice(-1)}
+                    {pokemon.generation}
                 </div>
             </div>
             <div className="guess-box" id="height" style={{backgroundColor: sHeightColor}}>

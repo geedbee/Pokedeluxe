@@ -10,7 +10,7 @@ export default function Pokedle(props) {
         type1: string;
         type2?: string;
         color: string;
-        habitat: string;
+        habitat?: string;
         generation: string;
         evolutionURL: any;
         ability: string;
@@ -27,51 +27,29 @@ export default function Pokedle(props) {
     const [loading, setLoading] = useState(true);
     const [solution, setSolution] = useState<Pokemon>();
 
-    let minNum = 0;
-    let maxNum = 0;
-
-    if (props.generation == 1){
-        minNum = 0;
-        maxNum = 151;
-    }
-    else if (props.generation == 2){
-        minNum = 151;
-        maxNum = 251-minNum;
-    }
-    else if (props.generation == 3){
-        minNum=251;
-        maxNum=386-minNum;
-    }
-    else if (props.generation == 4){
-        minNum=386;
-        maxNum=493-minNum;
-    }
-
-    let r = Math.floor(Math.random() * maxNum);
-
     useEffect(() => {
-        const fetchData = async() => {
+        const fetchData = async(minNum, maxNum) => {
             try{
-                setTimeout(async () =>{
-                    //get all names
-                    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${maxNum}&offset=${minNum}`);
-                    const result = await response.json();
-                    console.log(result.results);
-                    //console.log(result);
-                    //for all names, create Pokemon objects
-                    result.results.map(async (p: any, i: number) => {
-                        //console.log(p.name);
-                        const response2 = await fetch(`${p.url}`);
-                        console.log(response2);
-                        const result2 = await response2.json();
-                        const splitUrl : string[] = p.url.split("/");
-                        //console.log(splitUrl);
-                        const id = splitUrl[6];
-                        //console.log(result2);
-                        const response3 = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
-                        const result3 = await response3.json();
-                        //console.log(result3);
-                        if (result2.types[1]){
+                //get all names
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${maxNum}&offset=${minNum}`);
+                const result = await response.json();
+                console.log(result.results);
+                //console.log(result);
+                //for all names, create Pokemon objects
+                result.results.map(async (p: any) => {
+                    //console.log(p.name);
+                    const response2 = await fetch(`${p.url}`);
+                    console.log(response2);
+                    const result2 = await response2.json();
+                    const splitUrl : string[] = p.url.split("/");
+                    //console.log(splitUrl);
+                    const id = splitUrl[6];
+                    //console.log(result2);
+                    const response3 = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+                    const result3 = await response3.json();
+                    //console.log(result3);
+                    if (result2.types[1]){
+                        if (result3.habitat){
                             let newPokemon : Pokemon = {
                                 name: p.name,
                                 type1: result2.types[0].type.name,
@@ -88,12 +66,29 @@ export default function Pokedle(props) {
                                 egggroup:result3.egg_groups[0].name,
                                 gifURL: result2.sprites.versions["generation-v"]["black-white"].animated.front_default,
                             };
-                            if (i == r){
-                                setSolution(newPokemon);
-                            }
                             setAllPokemon((a) => [...a, newPokemon]);
                         }
                         else{
+                            let newPokemon : Pokemon = {
+                                name: p.name,
+                                type1: result2.types[0].type.name,
+                                type2: result2.types[1].type.name,
+                                color: result3.color.name,
+                                generation: result3.generation.name,
+                                evolutionURL: result3.evolution_chain.url,
+                                ability: result2.abilities[0].ability.name,
+                                spriteURL: result2.sprites.front_default,
+                                height:result2.height,
+                                weight:result2.weight,
+                                flavortext:result3.flavor_text_entries[0]["flavor_text"],
+                                egggroup:result3.egg_groups[0].name,
+                                gifURL: result2.sprites.versions["generation-v"]["black-white"].animated.front_default,
+                            };
+                            setAllPokemon((a) => [...a, newPokemon]);
+                        }
+                    }
+                    else{
+                        if (result3.habitat){
                             let newPokemon : Pokemon = {
                                 name: p.name,
                                 type1: result2.types[0].type.name,
@@ -109,28 +104,89 @@ export default function Pokedle(props) {
                                 egggroup:result3.egg_groups[0].name,
                                 gifURL: result2.sprites.versions["generation-v"]["black-white"].animated.front_default,
                             };
-                            if (i == r){
-                                setSolution(newPokemon);
-                            }
                             setAllPokemon((a) => [...a, newPokemon]);
                         }
-                    });
-                    setLoading(false);
-                }, 5000);
+                        else{
+                            let newPokemon : Pokemon = {
+                                name: p.name,
+                                type1: result2.types[0].type.name,
+                                color: result3.color.name,
+                                generation: result3.generation.name,
+                                evolutionURL: result3.evolution_chain.url,
+                                ability: result2.abilities[0].ability.name,
+                                spriteURL: result2.sprites.front_default,
+                                height:result2.height,
+                                weight:result2.weight,
+                                flavortext:result3.flavor_text_entries[0]["flavor_text"],
+                                egggroup:result3.egg_groups[0].name,
+                                gifURL: result2.sprites.versions["generation-v"]["black-white"].animated.front_default,
+                            };
+                            setAllPokemon((a) => [...a, newPokemon]);
+                        }
+                    }
+
+                });
+                setLoading(false);
+                createNewSolution();
             }
             catch(error){
                 console.log(error);
                 setLoading(false);
             }
         }
-        fetchData();
+
+        const createNewSolution = () => {
+            const r = Math.floor(Math.random() * allPokemon.length);
+            setSolution(allPokemon[r]);
+            console.log("set solution as: " + allPokemon[r]);
+        }
+
+        const addPokemon = async() => {
+            for (let i = 0; i < props.generations.length; i++){
+                const x = props.generations[i];
+                let minNum = 0;
+                let maxNum = 0;
+                if (x == "1"){
+                    minNum = 0;
+                    maxNum = 151;
+                }
+                else if (x == "2"){
+                    minNum = 151;
+                    maxNum = 251-minNum;
+                }
+                else if (x == "3"){
+                    minNum=251;
+                    maxNum=386-minNum;
+                }
+                else if (x == "4"){
+                    minNum=386;
+                    maxNum=493-minNum;
+                }
+                else if (x == "5") {
+                    minNum = 493;
+                    maxNum = 649 - minNum;
+                }
+                else if (x == "6"){
+                    minNum = 649;
+                    maxNum = 721-minNum;
+                }
+                fetchData(minNum, maxNum);
+                console.log("AWAIT")
+            }
+            //createNewSolution();
+        }
+
+        addPokemon();
     }, []);
+
 
     //----------------GAME FUNCTIONALITY--------------------
     const [newGuess, setNewGuess] = useState("");
     const [guesses, setGuesses] = useState<Guess[]>([]);
     const [tries, setTries] = useState(0);
     const [winState, setWinState] = useState(false);
+
+
 
     interface Guess {
         pokemon: Pokemon,
@@ -237,8 +293,11 @@ export default function Pokedle(props) {
         setWinState(false);
     }
 
-
     return (
+        <>
+        </>
+    );
+    /*return (
         <>
             <div className="hint-box-container">
                 <p>Generation {props.generation}</p>
@@ -262,6 +321,7 @@ export default function Pokedle(props) {
                 </div>
             </div>
             {winState && <EndCard solution={solution} tries={tries}></EndCard>}
+
         </>
-    )
+    )*/
 }

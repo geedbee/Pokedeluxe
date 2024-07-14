@@ -6,14 +6,14 @@ import StartMenu from "./StartMenu.tsx";
 
 function App() {
     const [hasStarted, setHasStarted] = useState(false);
-    const [generation, setGeneration] = useState(1);
+    const [generations, setGenerations] = useState<string[]>([]);
 
   return (
     <>
         <div className="app-container">
             <Header></Header>
-            {!hasStarted && <StartMenu setHasStarted={setHasStarted} setGeneration={setGeneration}></StartMenu>}
-            {hasStarted && <Pokedle generation={generation}></Pokedle>}
+            {!hasStarted && <StartMenu setHasStarted={setHasStarted} setGenerations={setGenerations} generations={generations}></StartMenu>}
+            {hasStarted && <Pokedle generations={generations}></Pokedle>}
             <Footer></Footer>
         </div>
 
